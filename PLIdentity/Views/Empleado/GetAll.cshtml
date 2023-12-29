@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <center><h2 style="font-family:'Times New Roman', Times, serif">Empleado</h2></center>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un Empleado para editarlo o + para agregar un Empleado...</h5>          
+        </div>
+    </div>
+    <hr />
+    <br />
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("+", "Form", "Empleado", htmlAttributes: new { @class = "btn btn-success" })
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-responsive" id="myTable">
+            <thead>
+                <tr>
+                    <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                    <td class="hidden">NumeroEmpleado</td>
+                    <td class="text-center" style=" font-weight:bold;">RFC</td>
+                    <td class="text-center" style=" font-weight:bold;">Nombre</td>
+                    <td class="text-center" style=" font-weight:bold;">Apellido Paterno</td>
+                    <td class="text-center" style=" font-weight:bold;">Apellido Materno</td>
+                    <td class="text-center" style=" font-weight:bold;">Email</td>
+                    <td class="text-center" style=" font-weight:bold;">Telefono</td>
+                    <td class="text-center" style=" font-weight:bold;">FechaNacimiento</td>
+                    <td class="text-center" style=" font-weight:bold;">NSS</td>
+                    <td class="text-center" style=" font-weight:bold;">FechaIngreso</td>
+                    <td class="text-center" style=" font-weight:bold;">Foto</td>
+                    <td class="text-center" style=" font-weight:bold;">IdEmpresa</td>
+                    <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ML.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning bi bi-xbox" href="@Url.Action("Form", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado })"></a></td>
+
+                        <td class="hidden">@empleado.NumeroEmpleado</td>
+                        <td>@empleado.Rfc</td>
+                        <td>@empleado.Nombre</td>
+                        <td>@empleado.ApellidoPaterno</td>
+                        <td>@empleado.ApellidoMaterno</td>
+                        <td>@empleado.Email</td>
+                        <td>@empleado.Telefono</td>
+                        <td>@empleado.FechaNacimiento</td>
+                        <td>@empleado.Nss</td>
+                        <td>@empleado.FechaIngreso</td>
+                        <td>@empleado.Foto</td>
+                        <td>@empleado.IdEmpresa</td>
+
+                        <td class="text-center"><a class="btn btn-danger bi bi-trash" href="@Url.Action("Delete", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+
